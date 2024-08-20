@@ -20,7 +20,6 @@ namespace ASP.NETMVC_test.Controllers
         {
             return View();
         }
-
     }
 }
 
