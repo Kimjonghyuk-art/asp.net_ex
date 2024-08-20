@@ -15,7 +15,6 @@ namespace ASP.NETMVC_test.Controllers
         {
             return View();
         }
-
         public IActionResult Java()
         {
             return View();
