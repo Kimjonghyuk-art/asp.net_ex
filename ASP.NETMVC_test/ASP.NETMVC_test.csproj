@@ -6,8 +6,13 @@
 
   <ItemGroup>
     <None Remove="Views\Study\" />
+    <None Remove="Dao\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Study\" />
+    <Folder Include="Dao\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MySql.Data" Version="9.0.0" />
   </ItemGroup>
 </Project>
