@@ -5,5 +5,13 @@
 <div class="text-center">
     <h1 class="display-4">Index</h1>
     <p>인덱스 페이지 <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+    <!--방법1.-->
+    @*<h1>@Model.UserId</h1>
+    <h1>@Model.UserName</h1>*@
+
+    <!--방법2.-->
+    <h1>@ViewBag.User.UserId</h1>
+    <h2>@ViewBag.User.UserName</h2>
 </div>
 

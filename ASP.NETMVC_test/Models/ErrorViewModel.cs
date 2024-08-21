@@ -9,4 +9,3 @@ namespace ASP.NETMVC_test.Models
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
     }
 }
-
