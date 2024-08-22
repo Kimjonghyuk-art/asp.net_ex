@@ -31,6 +31,38 @@ namespace ASP.NETMVC_test.Controllers
         {
             return View();
         }
+
+        public IActionResult Study()
+        {
+          return View();
+        }
+
+    public IActionResult Submit(User user)
+    {
+
+
+
+      if (ModelState.IsValid)
+      {
+        // Process the form data (e.g., save to database, send email, etc.)
+        // For demonstration, we're just returning the data to the view.
+
+        // You might redirect to a "Thank You" page or display a success message
+        ViewBag.Message = "Your message has been sent!";
+        return View("Success", user);
+      }
+
+      // If the model is invalid, return the form view with validation errors
+      return View("Index");
     }
+
+    public IActionResult Success(User user)
+    {
+      return View(user);
+    }
+
+
+
+  }
 }
 

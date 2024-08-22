@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using ASP.NETMVC_test.Dao;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -22,7 +21,13 @@ namespace ASP.NETMVC_test
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+      //services.Add(new ServiceDescriptor(typeof(DbService), new DbService(Configuration.GetConnectionString("DefaultConnection"))));
+
+      // Configure DbContext to use MySQL
+      services.AddDbContext<ApplicationDbContext>(options =>
+      options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
+
+      services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,7 +40,11 @@ namespace ASP.NETMVC_test
             else
             {
                 app.UseExceptionHandler("/Home/Error");
+                app.UseHsts();
             }
+
+            app.UseHttpsRedirection();
+
             app.UseStaticFiles();
 
             app.UseRouting();
@@ -49,6 +58,7 @@ namespace ASP.NETMVC_test
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
+
     }
 }
 

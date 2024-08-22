@@ -11,35 +11,6 @@ namespace ASP.NETMVC_test.Dao
 		{
 		}
 
-		public List<User> getUsers()
-		{
-			List<User> list = new List<User>();
-			string SQL = "SELECT * FROM USER ";
-			using (MySqlConnection conn = GetConnection())
-			{
-				conn.Open();
-				MySqlCommand cmd = new MySqlCommand(SQL, conn);
-
-				using(var reader = cmd.ExecuteReader())
-				{
-					while(reader.Read())
-					{
-						list.Add(new Data()
-						{
-							UserId = Convert.ToInt32(reader["UserId"])
-						});
-					}
-				}
-			}
-			conn.close();
-
-			return list;
-		}
-
-    private MySqlConnection GetConnection()
-    {
-      throw new NotImplementedException();
-    }
   }
 }
 

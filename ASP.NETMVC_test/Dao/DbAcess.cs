@@ -1,263 +1,263 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Configuration;
-using System.Reflection;
-using System.Data.Common;
-using System.Data;
-using System.Data.SqlClient;
+//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
+//using System.Configuration;
+//using System.Reflection;
+//using System.Data.Common;
+//using System.Data;
+//using System.Data.SqlClient;
 
-namespace ShanaiKanri.Dao
-{
-    public class DbAccess
-    {
-        #region ƒNƒ‰ƒX•Ï”
+//namespace ShanaiKanri.Dao
+//{
+//    public class DbAccess
+//    {
+//        #region ï¿½Nï¿½ï¿½ï¿½Xï¿½Ïï¿½
 
-        public SqlConnection sqlCon { get; private set; }
-        public SqlTransaction sqlTran { get; private set; }
+//        public SqlConnection sqlCon { get; private set; }
+//        public SqlTransaction sqlTran { get; private set; }
 
-        #endregion
+//        #endregion
 
-        #region “Æ©ƒƒ\ƒbƒh
+//        #region ï¿½Æï¿½ï¿½ï¿½ï¿½\ï¿½bï¿½h
 
-        #region DBƒI[ƒvƒ“
-        /// <summary>
-        /// ƒf[ƒ^ƒx[ƒX‚ÉÚ‘±
-        /// </summary>
-        public DbAccess()
-        {
-            try
-            {
-                string sConnection = Properties.Resources.dbConnection;
+//        #region DBï¿½Iï¿½[ï¿½vï¿½ï¿½
+//        /// <summary>
+//        /// ï¿½fï¿½[ï¿½^ï¿½xï¿½[ï¿½Xï¿½ÉÚ‘ï¿½
+//        /// </summary>
+//        public DbAccess()
+//        {
+//            try
+//            {
+//                string sConnection = Properties.Resources.dbConnection;
 
-                //SqlConnection ‚ÌV‚µ‚¢ƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚·‚é (Ú‘±•¶š—ñ‚ğw’è)
-                this.sqlCon = new SqlConnection(sConnection);
-                // ƒf[ƒ^ƒx[ƒXÚ‘±‚ğŠJ‚­
-                this.sqlCon.Open();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+//                //SqlConnection ï¿½ÌVï¿½ï¿½ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½ğ¶ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½Ú‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½wï¿½ï¿½)
+//                this.sqlCon = new SqlConnection(sConnection);
+//                // ï¿½fï¿½[ï¿½^ï¿½xï¿½[ï¿½Xï¿½Ú‘ï¿½ï¿½ï¿½ï¿½Jï¿½ï¿½
+//                this.sqlCon.Open();
+//            }
+//            catch (Exception)
+//            {
+//                throw;
+//            }
+//        }
 
-        #endregion
+//        #endregion
 
-        #region ƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“ŠJn
+//        #region ï¿½gï¿½ï¿½ï¿½ï¿½ï¿½Uï¿½Nï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½Jï¿½n
 
-        /// <summary>
-        /// ƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“ŠJn
-        /// </summary>
-        /// <param name="cmd">SQLƒRƒ}ƒ“ƒh</param>
-        public void beginTransaction(SqlCommand cmd)
-        {
-            try
-            {
-                if (this.sqlCon.State != ConnectionState.Open)
-                {
-                    this.sqlCon.Open();
-                }
+//        /// <summary>
+//        /// ï¿½gï¿½ï¿½ï¿½ï¿½ï¿½Uï¿½Nï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½Jï¿½n
+//        /// </summary>
+//        /// <param name="cmd">SQLï¿½Rï¿½}ï¿½ï¿½ï¿½h</param>
+//        public void beginTransaction(SqlCommand cmd)
+//        {
+//            try
+//            {
+//                if (this.sqlCon.State != ConnectionState.Open)
+//                {
+//                    this.sqlCon.Open();
+//                }
 
-                //ƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“‚ÌŠJn
-                this.sqlTran = this.sqlCon.BeginTransaction();
+//                //ï¿½gï¿½ï¿½ï¿½ï¿½ï¿½Uï¿½Nï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ÌŠJï¿½n
+//                this.sqlTran = this.sqlCon.BeginTransaction();
 
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+//            }
+//            catch (Exception)
+//            {
+//                throw;
+//            }
 
-        }
+//        }
 
 
-        /// <summary>
-        /// ƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“Äİ’è
-        /// (ƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“ŠJnŒã‚ÉA‡@SELECT‡AINSERTorUPDATE‚ğÀs‚·‚éê‡‚Ég—p‚·‚é)
-        /// </summary>
-        /// <param name="cmd">SQLƒRƒ}ƒ“ƒh</param>
-        public void setTransaction(SqlCommand cmd)
-        {
-            try
-            {
-                cmd.Transaction = this.sqlTran;
-            }
-            catch
-            {
-                throw;
-            }
-        }
+//        /// <summary>
+//        /// ï¿½gï¿½ï¿½ï¿½ï¿½ï¿½Uï¿½Nï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½Äİ’ï¿½
+//        /// (ï¿½gï¿½ï¿½ï¿½ï¿½ï¿½Uï¿½Nï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½Jï¿½nï¿½ï¿½ÉAï¿½@SELECTï¿½AINSERTorUPDATEï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½ê‡ï¿½Égï¿½pï¿½ï¿½ï¿½ï¿½)
+//        /// </summary>
+//        /// <param name="cmd">SQLï¿½Rï¿½}ï¿½ï¿½ï¿½h</param>
+//        public void setTransaction(SqlCommand cmd)
+//        {
+//            try
+//            {
+//                cmd.Transaction = this.sqlTran;
+//            }
+//            catch
+//            {
+//                throw;
+//            }
+//        }
 
-        #endregion
+//        #endregion
 
-        #region ƒRƒ~ƒbƒg
+//        #region ï¿½Rï¿½~ï¿½bï¿½g
 
-        /// <summary>
-        /// ƒRƒ~ƒbƒg
-        /// </summary>
-        public void commit()
-        {
-            if (this.sqlTran.Connection != null)
-            {
-                this.sqlTran.Commit();
-                this.sqlTran.Dispose();
-            }
-        }
+//        /// <summary>
+//        /// ï¿½Rï¿½~ï¿½bï¿½g
+//        /// </summary>
+//        public void commit()
+//        {
+//            if (this.sqlTran.Connection != null)
+//            {
+//                this.sqlTran.Commit();
+//                this.sqlTran.Dispose();
+//            }
+//        }
 
-        #endregion
+//        #endregion
 
-        #region ƒ[ƒ‹ƒoƒbƒN
+//        #region ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½oï¿½bï¿½N
 
-        /// <summary>
-        /// ƒ[ƒ‹ƒoƒbƒN
-        /// </summary>
-        public void rollback()
-        {
-            if (this.sqlTran.Connection != null)
-            {
-                this.sqlTran.Rollback();
-                this.sqlTran.Dispose();
-            }
-        }
+//        /// <summary>
+//        /// ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½oï¿½bï¿½N
+//        /// </summary>
+//        public void rollback()
+//        {
+//            if (this.sqlTran.Connection != null)
+//            {
+//                this.sqlTran.Rollback();
+//                this.sqlTran.Dispose();
+//            }
+//        }
 
-        #endregion
+//        #endregion
 
-        #region DBƒNƒ[ƒY
+//        #region DBï¿½Nï¿½ï¿½ï¿½[ï¿½Y
 
-        /// <summary>
-        /// DB‚ğ•Â‚¶‚é
-        /// </summary>
-        public void close()
-        {
-            // ƒf[ƒ^ƒx[ƒXÚ‘±‚ğ•Â‚¶‚é 
-            this.sqlCon.Close();
-            this.sqlCon.Dispose();
-        }
+//        /// <summary>
+//        /// DBï¿½ï¿½Â‚ï¿½ï¿½ï¿½
+//        /// </summary>
+//        public void close()
+//        {
+//            // ï¿½fï¿½[ï¿½^ï¿½xï¿½[ï¿½Xï¿½Ú‘ï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½ 
+//            this.sqlCon.Close();
+//            this.sqlCon.Dispose();
+//        }
 
-        #endregion
+//        #endregion
 
-        #region ƒf[ƒ^æ“¾
+//        #region ï¿½fï¿½[ï¿½^ï¿½æ“¾
 
-        /// <summary>
-        /// SELECT•¶‚ğÀs‚µ‚ÄDataTable‚ğ•Ô‹p‚·‚é
-        /// </summary>
-        /// <param name="cmd">SQL‚ğÀs‚·‚é‚½‚ß‚ÌƒIƒuƒWƒFƒNƒg</param>
-        /// <returns>ƒf[ƒ^ƒe[ƒuƒ‹</returns>
-        public DataTable executeQuery(SqlCommand cmd)
-        {
-            //SQL‚ğÀs‚·‚éB
-            SqlDataReader read = cmd.ExecuteReader();
-            try
-            {
-                //æ“¾‚µ‚½î•ñ‚ğdt‚ÉƒZƒbƒg‚·‚éB
-                DataTable dt = new DataTable();
-                dt.Load(read);
+//        /// <summary>
+//        /// SELECTï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½DataTableï¿½ï¿½Ô‹pï¿½ï¿½ï¿½ï¿½
+//        /// </summary>
+//        /// <param name="cmd">SQLï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½é‚½ï¿½ß‚ÌƒIï¿½uï¿½Wï¿½Fï¿½Nï¿½g</param>
+//        /// <returns>ï¿½fï¿½[ï¿½^ï¿½eï¿½[ï¿½uï¿½ï¿½</returns>
+//        public DataTable executeQuery(SqlCommand cmd)
+//        {
+//            //SQLï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½B
+//            SqlDataReader read = cmd.ExecuteReader();
+//            try
+//            {
+//                //ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½dtï¿½ÉƒZï¿½bï¿½gï¿½ï¿½ï¿½ï¿½B
+//                DataTable dt = new DataTable();
+//                dt.Load(read);
 
-                return dt;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                read.Close();
-                read.Dispose();
-            }
-        }
+//                return dt;
+//            }
+//            catch (Exception)
+//            {
+//                throw;
+//            }
+//            finally
+//            {
+//                read.Close();
+//                read.Dispose();
+//            }
+//        }
 
-        #endregion
+//        #endregion
 
-        #region ƒNƒGƒŠÀs
-        /// <summary>
-        /// “o˜^EXVEíœ‚ğÀs‚·‚é
-        /// </summary>
-        /// <param name="cmd">SQL‚ğÀs‚·‚é‚½‚ß‚ÌƒIƒuƒWƒFƒNƒg</param>
-        /// <returns>^‹U’lB¬Œ÷‚ÅtrueA¸”s‚Åfalse‚ğ•Ô‚·</returns>
-        public int executeNonQuery(SqlCommand cmd)
-        {
-            try
-            {
-                if (this.sqlCon.State != ConnectionState.Open)
-                {
-                    this.sqlCon.Open();
-                }
-                if (this.sqlTran != null)
-                {
-                    cmd.Transaction = this.sqlTran;
-                }
+//        #region ï¿½Nï¿½Gï¿½ï¿½ï¿½ï¿½ï¿½s
+//        /// <summary>
+//        /// ï¿½oï¿½^ï¿½Eï¿½Xï¿½Vï¿½Eï¿½íœï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½
+//        /// </summary>
+//        /// <param name="cmd">SQLï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½é‚½ï¿½ß‚ÌƒIï¿½uï¿½Wï¿½Fï¿½Nï¿½g</param>
+//        /// <returns>ï¿½^ï¿½Uï¿½lï¿½Bï¿½ï¿½ï¿½ï¿½ï¿½ï¿½trueï¿½Aï¿½ï¿½ï¿½sï¿½ï¿½falseï¿½ï¿½Ô‚ï¿½</returns>
+//        public int executeNonQuery(SqlCommand cmd)
+//        {
+//            try
+//            {
+//                if (this.sqlCon.State != ConnectionState.Open)
+//                {
+//                    this.sqlCon.Open();
+//                }
+//                if (this.sqlTran != null)
+//                {
+//                    cmd.Transaction = this.sqlTran;
+//                }
 
-                // SQL‚ğÀs‚·‚éB
-                int result = cmd.ExecuteNonQuery();
+//                // SQLï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½B
+//                int result = cmd.ExecuteNonQuery();
 
-                // ÀsŒ”‚ğ–ß‚è’l‚Éİ’è‚·‚é
-                return result;
+//                // ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß‚ï¿½lï¿½Éİ’è‚·ï¿½ï¿½
+//                return result;
 
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-        }
+//            }
+//            catch (Exception ex)
+//            {
+//                throw;
+//            }
+//        }
 
-        /// <summary>
-        /// “o˜^ˆ—‚ğÀs
-        /// </summary>
-        /// <param name="cmd"></param>
-        /// <returns>“o˜^‚ÌPRIMARY_KEY</returns>
-        public int executeScalarQuery(SqlCommand cmd)
-        {
-            try
-            {
-                if (this.sqlCon.State != ConnectionState.Open)
-                {
-                    this.sqlCon.Open();
-                }
-                if (this.sqlTran != null)
-                {
-                    cmd.Transaction = this.sqlTran;
-                }
+//        /// <summary>
+//        /// ï¿½oï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½s
+//        /// </summary>
+//        /// <param name="cmd"></param>
+//        /// <returns>ï¿½oï¿½^ï¿½ï¿½ï¿½ï¿½PRIMARY_KEY</returns>
+//        public int executeScalarQuery(SqlCommand cmd)
+//        {
+//            try
+//            {
+//                if (this.sqlCon.State != ConnectionState.Open)
+//                {
+//                    this.sqlCon.Open();
+//                }
+//                if (this.sqlTran != null)
+//                {
+//                    cmd.Transaction = this.sqlTran;
+//                }
 
-                // “o˜^‚ÌPRIMARY_KEY‚ğ–ß‚è’l‚Éİ’è‚·‚é
-                return (int)(decimal)cmd.ExecuteScalar();
+//                // ï¿½oï¿½^ï¿½ï¿½ï¿½ï¿½PRIMARY_KEYï¿½ï¿½ß‚ï¿½lï¿½Éİ’è‚·ï¿½ï¿½
+//                return (int)(decimal)cmd.ExecuteScalar();
 
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-        }
+//            }
+//            catch (Exception ex)
+//            {
+//                throw;
+//            }
+//        }
 
-        /// <summary>
-        /// “o˜^ˆ—‚ğÀs‚µAOUTPUT‹å‚Åw’è‚µ‚½’l‚ğ•Ô‹p‚·‚é
-        /// </summary>
-        /// <param name="cmd"></param>
-        /// <returns>OUTPUT‹å‚Åw’è‚µ‚½’l</returns>
-        public int executeScalarQueryAndGetOutputValue(SqlCommand cmd)
-        {
-            try
-            {
-                if (this.sqlCon.State != ConnectionState.Open)
-                {
-                    this.sqlCon.Open();
-                }
-                if (this.sqlTran != null)
-                {
-                    cmd.Transaction = this.sqlTran;
-                }
+//        /// <summary>
+//        /// ï¿½oï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½AOUTPUTï¿½ï¿½Åwï¿½è‚µï¿½ï¿½ï¿½lï¿½ï¿½Ô‹pï¿½ï¿½ï¿½ï¿½
+//        /// </summary>
+//        /// <param name="cmd"></param>
+//        /// <returns>OUTPUTï¿½ï¿½Åwï¿½è‚µï¿½ï¿½ï¿½l</returns>
+//        public int executeScalarQueryAndGetOutputValue(SqlCommand cmd)
+//        {
+//            try
+//            {
+//                if (this.sqlCon.State != ConnectionState.Open)
+//                {
+//                    this.sqlCon.Open();
+//                }
+//                if (this.sqlTran != null)
+//                {
+//                    cmd.Transaction = this.sqlTran;
+//                }
 
-                return (int)cmd.ExecuteScalar();
+//                return (int)cmd.ExecuteScalar();
 
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-        }
-        #endregion
+//            }
+//            catch (Exception ex)
+//            {
+//                throw;
+//            }
+//        }
+//        #endregion
 
-        #endregion
+//        #endregion
 
-    }
-}
+//    }
+//}
