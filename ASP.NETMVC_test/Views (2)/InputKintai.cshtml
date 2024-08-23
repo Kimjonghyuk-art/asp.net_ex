@@ -1,0 +1,224 @@
+﻿@model ShanaiKanri.Models.AAAKimTestViewModel
+@{ ViewData["Title"] = "勤怠入力"; }
+
+
+<h1>勤怠一覧ㅁㅁㅁㅁ</h1>
+
+<form>
+    <div class="form-group">
+        <label class="control-label">技術者名</label>
+        <input class="form-inline form-control control-textbox" autocomplete="on" />
+    </div>
+    <div class="form-group">
+        <label class="control-label">年</label>
+        ／
+        <label class="control-label">月</label>
+    </div>
+    <div class="form-group">
+        <div class="form-inline licenseallowance-yearandmonth">
+            <select class="form-control">
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+            </select>
+            ／
+            <select class="form-control">
+                <option value=""></option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary waves-effect waves-light" formaction="/shanaikanri/.../..">検索</button>
+        <button id="openModal" type="button" class="btn btn-warning waves-effect waves-light" data-toggle="modal" data-target="#request-modal">
+            新規登録
+        </button>
+    </div>
+    <div class="form-group">
+        <label>件数　: 0</label>
+        <label>件</label>
+        <label>2024念はアンロック中です。</label>
+    </div>
+
+    <table class="table table-bordered table-striped table-hover text-nowrap">
+        <thead>
+            <tr>
+                <th> </th>
+                <th>日</th>
+                <th>出勤時刻</th>
+                <th>休憩開始時刻</th>
+                <th>休憩終了時刻</th>
+                <th>退勤時刻</th>
+                <th>事態</th>
+                <th>事態時間</th>
+                <th>事態理由</th>
+                <th>事態時間</th>
+                <th>　</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>編集</td>
+                <td>1</td>
+                <td>9:30</td>
+                <td>12:00</td>
+                <td>13:00</td>
+                <td>18:00</td>
+                <td>遅刻</td>
+                <td>1:00</td>
+                <td>電車遅延のため</td>
+                <td>7:00</td>
+                <td>削除</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="form-group">
+        <label class="control-label">メモ</label>
+        <textarea class="form-control"></textarea>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary waves-effect waves-light float-right" formaction="/shanaikanri/.../..">保存</button>
+    </div>
+
+</form>
+
+<div id ="modal" class=modal fade d-none" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header licenceAllowance-modal-header">
+                <div id="modal-header_licence" class="modal-title">
+                    <h2 class="modal-title">勤怠新規登録</h2>
+                </div>
+                <div id="modal-header_teacher" class="modal-title d-none">
+                    <h2 class="modal-title">勤怠新規登録</h2>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div> <!-- modal header end-->
+
+            <div class="modal-body">
+                @*     <div class="mb-3 row">
+            <label for="staticEmail" class="col-sm-2 col-form-label">2024年２月</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control-plaintext">
+            </div>
+        </div>*@
+                <div class="licenseallowance-modal-flex">
+                    <div class="licenseallowance-modal-flex">
+                        <label class="control-label licenseallowance-modal-label">技術者名</label>
+                        <input class="form-inline form-control control-textbox licenseallowance-modal-input" />
+                    </div>
+                </div>
+
+                <div class="licenseallowance-modal-flex">
+                    <div class="licenseallowance-modal-flex">
+                        <label class="control-label licenseallowance-modal-label">出勤時刻</label>
+                        <input class="form-inline form-control control-textbox licenseallowance-modal-input" />
+                    </div>
+                </div>
+
+                <div class="licenseallowance-modal-flex">
+                    <div class="licenseallowance-modal-flex">
+                        <label class="control-label licenseallowance-modal-label">休息開始時刻</label>
+                        <input class="form-inline form-control control-textbox licenseallowance-modal-input" />
+                    </div>
+                    <div class="licenseallowance-modal-flex">
+                        <label class="control-label licenseallowance-modal-label">休息終了時刻</label>
+                        <input class="form-inline form-control control-textbox licenseallowance-modal-input" />
+                    </div>
+                </div>
+
+                <div class="licenseallowance-modal-flex">
+                    <div class="licenseallowance-modal-flex">
+                        <label class="control-label licenseallowance-modal-label">退勤時刻</label>
+                        <input class="form-inline form-control control-textbox licenseallowance-modal-input" />
+                    </div>
+                </div>
+
+                <div class="licenseallowance-modal-flex">
+                    <div class="licenseallowance-modal-flex">
+                        <label class="control-label licenseallowance-modal-label">事態</label>
+                        <input class="form-inline form-control control-textbox licenseallowance-modal-input" />
+                    </div>
+                    <div class="licenseallowance-modal-flex">
+                        <label class="control-label licenseallowance-modal-label">事態時間</label>
+                        <input class="form-inline form-control control-textbox licenseallowance-modal-input" />
+                    </div>
+                </div>
+
+                <div class="licenseallowance-modal-flex">
+                    <div class="licenseallowance-modal-flex">
+                        <label class="control-label licenseallowance-modal-label">事態理由</label>
+                        <input class="form-inline form-control control-textbox licenseallowance-modal-input" />
+                    </div>
+                </div>
+
+
+            </div><!-- modal body end-->
+
+            <div class="modal-footer licenceAllowance-modal-footer">
+                <div class="form-group">
+                    <button type="button" class="btn btn-info" id="btnSave">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* javascript *@
+@section Scripts {
+    <!--Enterキーでのsubmit禁止-->
+    <script type="text/javascript" src="~/js/common/site-disable-submit-on-enter.js"></script>
+    <!--Buttonを読込用のstyleに変更-->
+    <script type="text/javascript" src="~/js/common/site-change-loding-style-disabled.js"></script>
+    <!--メッセージダイアログ表示-->
+    <script type="text/javascript" src="~/js/common/site-display-message.js"></script>
+    <!--オブジェクトを入力可能/読取専用に切り替える-->
+    <script type="text/javascript" src="~/js/common/site-edit-setting-switching.js"></script>
+    <!--画面固有JavaScript-->
+    <script type="text/javascript" src="~/js/individual/LicenseAllowance.js"></script>
+    <script type="text/javascript">
+
+
+    $(document).ready(function () {
+            
+        $("#openModal").on('click', function () {
+                
+            $("#modal").modal();
+        })
+
+
+    })
+</script>
+        
+}
+
+@*
+<table border="1">
+    <thead>
+        <tr>
+            <th>EngId</th>
+            <th>CompCode</th>
+            <th>EmployeeId</th>
+            <th>EngName</th>
+            <th>EngInitial</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in @Model.aAAKimTestViewModel)
+        {
+        <tr>
+            <td>@item.EngId</td>
+            <td>@item.CompCode</td>
+            <td>@item.EmployeeId</td>
+            <td>@item.EngName</td>
+            <td>@item.EngInitial</td>
+        </tr>
+        }
+    </tbody>
+</table>*@
