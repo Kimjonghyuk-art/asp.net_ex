@@ -1,12 +1,23 @@
-﻿@*@{
-        ViewData["Title"] = "Home Page";
-    }*@
+﻿@model ASP.NETMVC_test.Models.UserViewModel
 
-<div class="text-center">
-    <h1 class="display-4">Index</h1>
-    <p>사내관리 인덱스 페이지</p>
+<h2>User List</h2>
 
-
-
-</div>
-
+<table>
+    <thead>
+        <tr>
+            <th>No.</th>
+            <th>User Name</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Users.Count; i++)
+        {
+            <tr>
+                <td>@(i + 1)</td>
+                <td>@Model.Users[i].UserName</td>
+                <td>@Model.Users[i].Email</td>
+            </tr>
+        }
+    </tbody>
+</table>

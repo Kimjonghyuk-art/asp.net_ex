@@ -1,22 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Configuration;
-using System.Reflection;
-using System.Data.Common;
 using System.Data;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 
-namespace ShanaiKanri.Dao
+namespace ASP.NETMVC_test.Dao
 {
     public class DbAccess
     {
         #region クラス変数
 
-        public SqlConnection sqlCon { get; private set; }
-        public SqlTransaction sqlTran { get; private set; }
+        public MySqlConnection sqlCon { get; private set; }
+        public MySqlTransaction sqlTran { get; private set; }
 
         #endregion
 
@@ -30,12 +23,12 @@ namespace ShanaiKanri.Dao
         {
             try
             {
-                string sConnection = Properties.Resources.dbConnection;
-
-                //SqlConnection の新しいインスタンスを生成する (接続文字列を指定)
-                this.sqlCon = new SqlConnection(sConnection);
-                // データベース接続を開く
-                this.sqlCon.Open();
+        string sConnection = "Server=localhost; Port=3306; database=test; Uid=root; Pwd=1234"
+  ;
+              //SqlConnection の新しいインスタンスを生成する (接続文字列を指定)
+              this.sqlCon = new MySqlConnection(sConnection);
+              // データベース接続を開く
+              this.sqlCon.Open();
             }
             catch (Exception)
             {
@@ -51,7 +44,7 @@ namespace ShanaiKanri.Dao
         /// トランザクション開始
         /// </summary>
         /// <param name="cmd">SQLコマンド</param>
-        public void beginTransaction(SqlCommand cmd)
+        public void beginTransaction(MySqlCommand cmd)
         {
             try
             {
@@ -77,7 +70,7 @@ namespace ShanaiKanri.Dao
         /// (トランザクション開始後に、①SELECT②INSERTorUPDATEを実行する場合に使用する)
         /// </summary>
         /// <param name="cmd">SQLコマンド</param>
-        public void setTransaction(SqlCommand cmd)
+        public void setTransaction(MySqlCommand cmd)
         {
             try
             {
@@ -144,10 +137,10 @@ namespace ShanaiKanri.Dao
         /// </summary>
         /// <param name="cmd">SQLを実行するためのオブジェクト</param>
         /// <returns>データテーブル</returns>
-        public DataTable executeQuery(SqlCommand cmd)
+        public DataTable executeQuery(MySqlCommand cmd)
         {
-            //SQLを実行する。
-            SqlDataReader read = cmd.ExecuteReader();
+           //SQLを実行する。
+            MySqlDataReader read = cmd.ExecuteReader();
             try
             {
                 //取得した情報をdtにセットする。
@@ -175,7 +168,7 @@ namespace ShanaiKanri.Dao
         /// </summary>
         /// <param name="cmd">SQLを実行するためのオブジェクト</param>
         /// <returns>真偽値。成功でtrue、失敗でfalseを返す</returns>
-        public int executeNonQuery(SqlCommand cmd)
+        public int executeNonQuery(MySqlCommand cmd)
         {
             try
             {
@@ -206,7 +199,7 @@ namespace ShanaiKanri.Dao
         /// </summary>
         /// <param name="cmd"></param>
         /// <returns>登録時のPRIMARY_KEY</returns>
-        public int executeScalarQuery(SqlCommand cmd)
+        public int executeScalarQuery(MySqlCommand cmd)
         {
             try
             {
@@ -234,7 +227,7 @@ namespace ShanaiKanri.Dao
         /// </summary>
         /// <param name="cmd"></param>
         /// <returns>OUTPUT句で指定した値</returns>
-        public int executeScalarQueryAndGetOutputValue(SqlCommand cmd)
+        public int executeScalarQueryAndGetOutputValue(MySqlCommand cmd)
         {
             try
             {
