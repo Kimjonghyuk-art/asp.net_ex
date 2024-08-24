@@ -44,9 +44,15 @@ namespace ASP.NETMVC_test.Dao
       MySqlCommand cmd = dbAccess.sqlCon.CreateCommand();
       try
       {
+        // 1. 먼저 최대 UserId를 구함
+        cmd.CommandText = "SELECT MAX(UserId) + 1 FROM USER";
+        object result = cmd.ExecuteScalar();
+        int newUserId = result != DBNull.Value ? Convert.ToInt32(result) : 1;
+
         //クエリ作成
         cmd.CommandText = InsertUserQuery();
 
+        cmd.Parameters.AddWithValue("@UserId", newUserId);
         cmd.Parameters.AddWithValue("@UserName", userModel.UserName);
         cmd.Parameters.AddWithValue("@Email", userModel.Email);
         cmd.Parameters.AddWithValue("@Age", userModel.Age);
@@ -63,8 +69,8 @@ namespace ASP.NETMVC_test.Dao
     private string InsertUserQuery()
     {
       StringBuilder sb = new StringBuilder();
-      sb.Append("INSERT INTO USER (UserName, Email, Age) ")
-        .Append("VALUES (@UserName, @Email, @Age);");
+      sb.Append("INSERT INTO USER (UserId, UserName, Email, Age) ")
+        .Append("VALUES (@UserId, @UserName, @Email, @Age);");
 
       return sb.ToString();
     }
@@ -124,6 +130,33 @@ namespace ASP.NETMVC_test.Dao
             return usertList;
         }
 
+    internal void deleteUser(UserModel userModel)
+    {
+      DbAccess dbAccess = new DbAccess();
+      MySqlCommand cmd = dbAccess.sqlCon.CreateCommand();
+      try
+      {
+        //クエリ作成
+        cmd.CommandText = DeleteUserQuery();
 
+        cmd.Parameters.AddWithValue("@UserId", userModel.UserId);
+
+        // 쿼리 실행
+        dbAccess.executeQuery(cmd);
+      }
+      catch
+      {
+        throw;
+      }
     }
+
+    private string DeleteUserQuery()
+    {
+      StringBuilder sb = new StringBuilder();
+      sb.Append(" DELETE FROM USER ")
+        .Append("WHERE UserId = @UserId");
+
+      return sb.ToString();
+    }
+  }
 }

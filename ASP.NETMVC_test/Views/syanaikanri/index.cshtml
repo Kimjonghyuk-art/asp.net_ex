@@ -5,20 +5,29 @@
 <table>
     <thead>
         <tr>
-            <th>No.</th>
+            <th></th>
+            <th>userId</th>
             <th>User Name</th>
             <th>Email</th>
             <th>Age</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         @for (int i = 0; i < Model.Users.Count; i++)
         {
             <tr>
-                <td>@(i + 1)</td>
+                <td><a>update</a></td>
+                <td>@Model.Users[i].UserId</td>
                 <td>@Model.Users[i].UserName</td>
                 <td>@Model.Users[i].Email</td>
                 <td>@Model.Users[i].Age</td>
+                <td>
+                    <form asp-action="DeleteUser" method="post">
+                        <input type="hidden" name="UserId" value="@Model.Users[i].UserId" />
+                        <button type="submit">delete</button>
+                    </form>
+                </td>
             </tr>
         }
     </tbody>
