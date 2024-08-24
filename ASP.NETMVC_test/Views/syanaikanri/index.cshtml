@@ -21,3 +21,22 @@
         }
     </tbody>
 </table>
+
+
+<form action="/syanaikanri/TestSubmit" method="post">
+    <label for="userName">UserName</label>
+    <input type="text" id="UserName" name="UserName" />
+    <button type="submit">Submit</button>
+</form>
+
+
+<!--Use Razor tag -->
+@using (Html.BeginForm("TestSubmit", "syanaikanri", FormMethod.Post))
+{
+    <div>
+        @Html.LabelFor(model => model.UserName, "UserName")
+        @Html.TextBoxFor(model => model.UserName, new { @id = "UserName" })
+    </div>
+    <button type="submit">Submit</button>
+}
+

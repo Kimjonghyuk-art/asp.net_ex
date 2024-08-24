@@ -66,6 +66,13 @@ namespace ASP.NETMVC_test.Controllers
         }
 
 
+    public IActionResult TestSubmit(UserViewModel vm)
+    {
+      Console.WriteLine(vm.UserName);
+
+      return RedirectToAction("Index");
+    }
+
 
     }
 
