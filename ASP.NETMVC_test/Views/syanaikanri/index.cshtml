@@ -8,6 +8,7 @@
             <th>No.</th>
             <th>User Name</th>
             <th>Email</th>
+            <th>Age</th>
         </tr>
     </thead>
     <tbody>
@@ -17,25 +18,34 @@
                 <td>@(i + 1)</td>
                 <td>@Model.Users[i].UserName</td>
                 <td>@Model.Users[i].Email</td>
+                <td>@Model.Users[i].Age</td>
             </tr>
         }
     </tbody>
 </table>
 
 
-<form action="/syanaikanri/TestSubmit" method="post">
-    <label for="userName">UserName</label>
-    <input type="text" id="UserName" name="UserName" />
-    <button type="submit">Submit</button>
-</form>
+@*<form action="/syanaikanri/TestSubmit" method="post">
+        <label for="userName">UserName</label>
+        <input type="text" id="UserName" name="UserName" />
+        <button type="submit">Submit</button>
+    </form>*@
 
 
 <!--Use Razor tag -->
-@using (Html.BeginForm("TestSubmit", "syanaikanri", FormMethod.Post))
+@using (Html.BeginForm("InsertUser", "syanaikanri", FormMethod.Post))
 {
     <div>
         @Html.LabelFor(model => model.UserName, "UserName")
         @Html.TextBoxFor(model => model.UserName, new { @id = "UserName" })
+    </div>
+    <div>
+        @Html.LabelFor(model => model.Age, "Age")
+        @Html.TextBoxFor(model => model.Age, new { @id = "Age" })
+    </div>
+    <div>
+        @Html.LabelFor(model => model.Email, "Email")
+        @Html.TextBoxFor(model => model.Email, new { @id = "Email" })
     </div>
     <button type="submit">Submit</button>
 }
@@ -131,7 +141,6 @@
         </div>
     </div>
 </div>
-
 
 @section Scripts {
     <script src="~/js/Syanaikanri.js"></script>

@@ -8,38 +8,23 @@ namespace ASP.NETMVC_test.Controllers
 {
     public class SyanaiKanriController: Controller
     {
+      public UserDao dao = new UserDao();
         /// <summary>
         /// 初期表示
         /// </summary>
         /// <returns>テスト画面</returns>
         public IActionResult Index()
-        {
-            UserViewModel vm = new UserViewModel();
+            {
+                UserViewModel vm = new UserViewModel();
       
-            UserDao dao = new UserDao();
-            List<UserModel> userModels = dao.findLoginUserList();
+            
+                List<UserModel> userModels = dao.findLoginUserList();
 
-            //ViewModelに格納
-            setBindVm(vm, userModels);
+                //ViewModelに格納
+                setBindVm(vm, userModels);
 
-            return View(vm);
-        }
-        /// <summary>
-        /// 勤怠入力画面
-        /// </summary>
-        /// <returns>勤怠入力画面</returns>
-        public IActionResult InputKintai()
-        {
-          /*  AAAKimTestViewModel vm = new AAAKimTestViewModel();
-
-            AAAKimTestDao dao = new AAAKimTestDao();
-            List<AAAKimTestModel> aAAKimTestModels = dao.findLoginUserList();
-
-            //ViewModelに格納
-            setBindVm(vm, aAAKimTestModels);*/
-
-            return View();
-        }
+                return View(vm);
+            }
 
         /// <summary>
         /// DataModel型のデータをViewModel型に変換
@@ -66,15 +51,29 @@ namespace ASP.NETMVC_test.Controllers
         }
 
 
-    public IActionResult TestSubmit(UserViewModel vm)
-    {
-      Console.WriteLine(vm.UserName);
+        public IActionResult InsertUser(UserViewModel vm)
+        {
+          //ViewModel -> Model
+          UserModel userModel = setBindM(vm);
+          dao.insertUser(userModel);
+          
 
-      return RedirectToAction("Index");
-    }
+          return RedirectToAction("Index");
+        }
 
 
-    }
+        private UserModel setBindM(UserViewModel vm)
+        {
+
+          UserModel userModel = new UserModel()
+          {
+            UserName = vm.UserName,
+            Email = vm.Email,
+            Age = vm.Age
+           };
+            return userModel;
+        }
+  }
 
    
 

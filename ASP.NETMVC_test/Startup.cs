@@ -24,8 +24,8 @@ namespace ASP.NETMVC_test
       //services.Add(new ServiceDescriptor(typeof(DbService), new DbService(Configuration.GetConnectionString("DefaultConnection"))));
 
       // Configure DbContext to use MySQL
-      services.AddDbContext<ApplicationDbContext>(options =>
-      options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
+      //services.AddDbContext<ApplicationDbContext>(options =>
+      //options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
 
       services.AddControllersWithViews();
         }

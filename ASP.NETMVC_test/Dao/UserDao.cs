@@ -38,8 +38,38 @@ namespace ASP.NETMVC_test.Dao
             return userList;
         }
 
+    public void insertUser(UserModel userModel)
+    {
+      DbAccess dbAccess = new DbAccess();
+      MySqlCommand cmd = dbAccess.sqlCon.CreateCommand();
+      try
+      {
+        //クエリ作成
+        cmd.CommandText = InsertUserQuery();
 
-        private string findUserSelectQuery()
+        cmd.Parameters.AddWithValue("@UserName", userModel.UserName);
+        cmd.Parameters.AddWithValue("@Email", userModel.Email);
+        cmd.Parameters.AddWithValue("@Age", userModel.Age);
+
+        // 쿼리 실행
+        dbAccess.executeQuery(cmd);
+      }
+      catch
+      {
+        throw;
+      }
+    }
+
+    private string InsertUserQuery()
+    {
+      StringBuilder sb = new StringBuilder();
+      sb.Append("INSERT INTO USER (UserName, Email, Age) ")
+        .Append("VALUES (@UserName, @Email, @Age);");
+
+      return sb.ToString();
+    }
+
+    private string findUserSelectQuery()
         {
             StringBuilder sb = new StringBuilder();
             sb.Append(" SELECT ")
