@@ -40,3 +40,99 @@
     <button type="submit">Submit</button>
 }
 
+<div class="form-group">
+    <button type="submit" class="btn btn-primary waves-effect waves-light" formaction="/shanaikanri/.../..">検索</button>
+    <button id="openModal" type="button" class="btn btn-warning waves-effect waves-light" data-toggle="modal" data-target="#request-modal">
+        新規登録
+    </button>
+</div>
+
+<!-- modal Start -->
+<div id="modal" class=modal fade d-none" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header licenceAllowance-modal-header">
+                <div id="modal-header_licence" class="modal-title">
+                    <h2 class="modal-title">勤怠新規登録</h2>
+                </div>
+                <div id="modal-header_teacher" class="modal-title d-none">
+                    <h2 class="modal-title">勤怠新規登録</h2>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div> <!-- modal header end-->
+
+            <div class="modal-body">
+                @*     <div class="mb-3 row">
+                        <label for="staticEmail" class="col-sm-2 col-form-label">2024年２月</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control-plaintext">
+                        </div>
+                    </div>*@
+                <div class="licenseallowance-modal-flex">
+                    <div class="licenseallowance-modal-flex">
+                        <label class="control-label licenseallowance-modal-label">技術者名</label>
+                        <input class="form-inline form-control control-textbox licenseallowance-modal-input" />
+                    </div>
+                </div>
+
+                <div class="licenseallowance-modal-flex">
+                    <div class="licenseallowance-modal-flex">
+                        <label class="control-label licenseallowance-modal-label">出勤時刻</label>
+                        <input class="form-inline form-control control-textbox licenseallowance-modal-input" />
+                    </div>
+                </div>
+
+                <div class="licenseallowance-modal-flex">
+                    <div class="licenseallowance-modal-flex">
+                        <label class="control-label licenseallowance-modal-label">休息開始時刻</label>
+                        <input class="form-inline form-control control-textbox licenseallowance-modal-input" />
+                    </div>
+                    <div class="licenseallowance-modal-flex">
+                        <label class="control-label licenseallowance-modal-label">休息終了時刻</label>
+                        <input class="form-inline form-control control-textbox licenseallowance-modal-input" />
+                    </div>
+                </div>
+
+                <div class="licenseallowance-modal-flex">
+                    <div class="licenseallowance-modal-flex">
+                        <label class="control-label licenseallowance-modal-label">退勤時刻</label>
+                        <input class="form-inline form-control control-textbox licenseallowance-modal-input" />
+                    </div>
+                </div>
+
+                <div class="licenseallowance-modal-flex">
+                    <div class="licenseallowance-modal-flex">
+                        <label class="control-label licenseallowance-modal-label">事態</label>
+                        <input class="form-inline form-control control-textbox licenseallowance-modal-input" />
+                    </div>
+                    <div class="licenseallowance-modal-flex">
+                        <label class="control-label licenseallowance-modal-label">事態時間</label>
+                        <input class="form-inline form-control control-textbox licenseallowance-modal-input" />
+                    </div>
+                </div>
+
+                <div class="licenseallowance-modal-flex">
+                    <div class="licenseallowance-modal-flex">
+                        <label class="control-label licenseallowance-modal-label">事態理由</label>
+                        <input class="form-inline form-control control-textbox licenseallowance-modal-input" />
+                    </div>
+                </div>
+
+
+            </div><!-- modal body end-->
+
+            <div class="modal-footer licenceAllowance-modal-footer">
+                <div class="form-group">
+                    <button type="button" class="btn btn-info" id="btnSave">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/js/Syanaikanri.js"></script>
+}
