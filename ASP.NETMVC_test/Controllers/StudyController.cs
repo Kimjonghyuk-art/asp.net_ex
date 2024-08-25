@@ -52,15 +52,20 @@ namespace ASP.NETMVC_test.Controllers
         return View("Success", user);
       }
 
-      // If the model is invalid, return the form view with validation errors
-      return View("Index");
+        // If the model is invalid, return the form view with validation errors
+        return View("Index");
     }
 
     public IActionResult Success(User user)
     {
-      return View(user);
+        return View(user);
     }
 
+    public IActionResult Toasts()
+    {
+
+        return View();
+    }
 
 
   }
