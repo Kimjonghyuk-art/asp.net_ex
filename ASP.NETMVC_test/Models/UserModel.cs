@@ -16,5 +16,7 @@ namespace ASP.NETMVC_test.Models
 
         public string Email { get; set; }
 
-    }
+        public DateTime RegisterDate { get; set; }
+
+  }
 }

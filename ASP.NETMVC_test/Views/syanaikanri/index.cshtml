@@ -1,4 +1,8 @@
 ﻿@model ASP.NETMVC_test.Models.UserViewModel
+@{
+    // ex Data: name List
+    var userNames = new List<string> { "Alice", "Bob", "Charlie", "David", "Eve" };
+}
 
 <h2>User List</h2>
 
@@ -24,6 +28,7 @@
                 <td>@Model.Users[i].Age</td>
                 <td>
                     <form asp-action="DeleteUser" method="post">
+                        th
                         <input type="hidden" name="UserId" value="@Model.Users[i].UserId" />
                         <button type="submit">delete</button>
                     </form>
@@ -56,6 +61,11 @@
         @Html.LabelFor(model => model.Email, "Email")
         @Html.TextBoxFor(model => model.Email, new { @id = "Email" })
     </div>
+    <div>
+        @Html.LabelFor(model => model.RegisterDate, "RegisterDate")
+        @Html.TextBoxFor(model => model.RegisterDate, new { @id = "RegisterDate", @type = "time" })
+    </div>
+
     <button type="submit">Submit</button>
 }
 
@@ -65,6 +75,65 @@
         新規登録
     </button>
 </div>
+
+
+<!--Ex DataList and AutoComplite-->
+<!-- 자동완성 기능이 있는 입력 필드 -->
+@*<div>
+        @Html.LabelFor(model => model.UserName, "User Name")
+        @Html.TextBoxFor(model => model.UserName, new { list = "usernames", @id = "username" })
+    </div>*@
+
+<!-- 자동완성 옵션을 제공하는 데이터리스트 -->
+@*<datalist id="usernames">
+        @for (int i = 0; i < Model.Users.Count; i++)
+        {
+            <option valuies="Model.Users.UserName"></option>
+        }
+    </datalist>*@
+
+
+<!--Ex2 Razor Tag Ex DropDownList -->
+@*<h1>Razor Tag Ex</h1>
+
+    <div>
+        @Html.LabelFor(model => model.SelectedUserId, "Select User")*@
+
+<!-- 드롭다운 리스트 -->
+@*@Html.DropDownListFor(
+            model => model.SelectedUserId,
+            new SelectList(Model.Users, "UserId", "UserName"),
+            "Select a user"
+        )
+    </div>*@
+<!-- 폼 제출 버튼 -->
+@using (Html.BeginForm("InsertUser", "syanaikanri", FormMethod.Post))
+{
+    <!--Ex3 input 사용 자동완성 필드 선택시 ID 전송-->
+    <h1>Input autocomplete Ex</h1>
+    <!-- 자동완성 입력 필드 -->
+    <div>
+        @Html.LabelFor(model => model.UserName, "User Name")
+        @Html.TextBoxFor(model => model.UserName, new { list = "usernames", @id = "username", @name = "UserName", autocomplete = "on" })
+    </div>
+
+    <!-- 숨김 필드로 UserId 전송 -->
+    <input type="text" id="SelectedUserId" name="SelectedUserId" />
+
+    <!-- 자동완성 옵션을 제공하는 데이터리스트 -->
+    <datalist id="usernames">
+        @foreach (var user in Model.Users)
+        {
+            <option value="@user.UserName" data-id="@user.UserId"></option>
+        }
+    </datalist>
+
+
+    <button type="submit">Submit</button>
+}
+
+
+
 
 <!-- modal Start -->
 <div id="modal" class=modal fade d-none" tabindex="-1" role="dialog" aria-hidden="true">
